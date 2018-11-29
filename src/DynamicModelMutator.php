@@ -19,9 +19,9 @@ trait DynamicModelMutator
      * @param mixed $key
      * @param mixed $value
      *
-     * @return Model
+     * @return self|null
      */
-    public function setAttribute($key, $value)
+    public function setAttribute($key, $value): ?self
     {
         foreach (self::$dynamic_mutators['set'] ?? [] as $mutatorKey => $callable) {
             if ($this->checkDynamicMutatorValues($mutatorKey, $key)) {
@@ -51,6 +51,8 @@ trait DynamicModelMutator
     }
 
     /**
+     * Determinate if a mutator value is set.
+     *
      * @param $mutatorKey
      * @param $key
      *
@@ -66,7 +68,7 @@ trait DynamicModelMutator
     }
 
     /**
-     * Register defined set mutators.
+     * Register set mutator.
      *
      * @param string $name
      * @param string $callableMethod
@@ -79,7 +81,7 @@ trait DynamicModelMutator
     }
 
     /**
-     * Register defined get mutators.
+     * Register get mutator.
      *
      * @param string $name
      * @param string $callableMethod
@@ -92,7 +94,7 @@ trait DynamicModelMutator
     }
 
     /**
-     * Register defined get mutators.
+     * Register mutator.
      *
      * @param string $operator
      * @param string $name
