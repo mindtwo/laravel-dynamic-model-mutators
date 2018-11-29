@@ -3,6 +3,12 @@
 [![Total Downloads](https://poser.pugx.org/mindtwo/laravel-dynamic-model-mutators/downloads)](https://packagist.org/packages/mindtwo/laravel-dynamic-model-mutators)
 [![License](https://poser.pugx.org/mindtwo/laravel-dynamic-model-mutators/license)](https://packagist.org/packages/mindtwo/laravel-dynamic-model-mutators)
 
+## Introduction
+This package is an extension for Laravel's eloquent model. It allows you to define 
+multiple get and set mutators by registering your own callback functions. This is 
+a simple way to inject Laravel's getAttribute() and setAttribute() methods, 
+especially within different traits on a single model.
+
 ## Installation
 
 You can install the package via composer:
