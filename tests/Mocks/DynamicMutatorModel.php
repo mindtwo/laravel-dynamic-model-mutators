@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Mocks;
+namespace mindtwo\LaravelDynamicModelMutators\Tests\Mocks;
 
 use Illuminate\Database\Eloquent\Model;
 use mindtwo\LaravelDynamicModelMutators\DynamicModelMutator;
@@ -8,6 +8,7 @@ use mindtwo\LaravelDynamicModelMutators\DynamicModelMutator;
 class DynamicMutatorModel extends Model
 {
     use DynamicModelMutator;
+
 
     protected $guarded = [];
 

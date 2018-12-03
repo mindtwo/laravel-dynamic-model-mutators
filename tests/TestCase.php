@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace mindtwo\LaravelDynamicModelMutators\Tests;
 
 use PHPUnit\Framework\TestCase as BaseTestCase;
 

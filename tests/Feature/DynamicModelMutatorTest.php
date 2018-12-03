@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Feature;
+namespace mindtwo\LaravelDynamicModelMutators\Tests\Feature;
 
 use mindtwo\LaravelDynamicModelMutators\Exceptions\MutatorNotCallableException;
 use mindtwo\LaravelDynamicModelMutators\Exceptions\MutatorOperatorNotDefinedException;
-use Tests\Mocks\DynamicMutatorModel;
-use Tests\TestCase;
+use mindtwo\LaravelDynamicModelMutators\Tests\Mocks\DynamicMutatorModel;
+use mindtwo\LaravelDynamicModelMutators\Tests\TestCase;
 
 class DynamicModelMutatorTest extends TestCase
 {
