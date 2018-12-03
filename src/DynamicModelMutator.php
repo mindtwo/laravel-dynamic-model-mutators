@@ -97,11 +97,11 @@ trait DynamicModelMutator
      */
     protected function hasDynamicMutator(string $attributeName, string $mutatorName, string $operator = 'get'): bool
     {
-        if (! isset(self::$dynamic_mutators[$operator][$mutatorName]) && ! isset($this->$mutatorName)) {
+        if (! isset(self::$dynamic_mutators[$operator][$mutatorName]) || empty($this->$mutatorName)) {
             return false;
         }
 
-        if (! isset($this->$mutatorName[$attributeName]) && ! in_array($attributeName, $this->$mutatorName)) {
+        if (!array_key_exists($attributeName, $this->$mutatorName) && ! in_array($attributeName, $this->$mutatorName)) {
             return false;
         }
 
