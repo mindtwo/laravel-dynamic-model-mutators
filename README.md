@@ -21,7 +21,7 @@ composer require mindtwo/laravel-dynamic-model-mutators
 
 Use the "DynamicModelMutator" trait in your eloquent models:
 
-```bash
+```php
 <?php
 namespace App;
 
@@ -35,18 +35,113 @@ class User extends Model
 ```
 
 In the boot method of the model you can now register the dynamic getter and setter functions e.g.:
+```php
+/**
+ * The "booting" method of the model.
+ *
+ * @return void
+ */
+protected static function boot()
+{
+    static::registerSetMutator('translations', 'setAttributeTranslation');
+    static::registerGetMutator('translations', 'getAttributeTranslation');
+}
 ```
-    /**
-     * The "booting" method of the model.
-     *
-     * @return void
-     */
-    protected static function boot()
-    {
-        static::registerSetMutator('translations', 'setAttributeTranslation');
-        static::registerGetMutator('translations', 'getAttributeTranslation');
-    }
+
+registerSetMutator and registerGetMutator expecting two parameters. First is name 
+of mutator, which is the name of the property which configures your attributes 
+for the registered mutator, too. The 
+second is the name of the callback function which will be called on the same object. 
+
+#### Defining attributes for mutators
+To define attributes for your mutators you have to set up a class property with
+the mutator key as its name. For example we use 'translations' as mutator key, 
+so we can setup our attributes by defining an $translations property on our model.
+
+```php
+namespace Examples;
+
+use Illuminate\Database\Eloquent\Model;
+use mindtwo\LaravelDynamicModelMutators\DynamicModelMutator;
+use mindtwo\LaravelDynamicModelMutators\Interfaces\DynamicModelMutatorInterface; 
+
+class exampleModel extends Model implements DynamicModelMutatorInterface 
+{
+    use use DynamicModelMutator;
+    
+    $translations = [
+        'attribute_1',
+        'attribute_2',
+        'attribute_3'
+    ];
+}
 ```
+
+Optionally you can set up a attribute based configuration which will be passed to 
+you mutator methods. So you can add additional configuration to your attributes.
+
+```php
+namespace Examples;
+
+use Illuminate\Database\Eloquent\Model;
+use mindtwo\LaravelDynamicModelMutators\DynamicModelMutator;
+use mindtwo\LaravelDynamicModelMutators\Interfaces\DynamicModelMutatorInterface; 
+
+class exampleModel extends Model implements DynamicModelMutatorInterface 
+{
+    use use DynamicModelMutator;
+    
+    $translations = [
+        'attribute_1' = 'string',
+        'attribute_2' = 'text',
+        'attribute_3' = [
+            'type'    => string,
+            'locales' => ['en', 'de'] 
+        ]
+    ];
+}
+```
+   
+
+#### Set mutator callback function
+The callback function for a set mutators must accept three arguments. First is the
+attribute name, second is the attribute value, third is the attribute specific
+configuration. Because they will be called automatically within the trait, 
+there is no need to return any value. 
+
+```php
+/**
+ * Set attribute translation.
+ *
+ * @return void
+ */
+public function setAttributeTranslation($name, $value, $config=null)
+{
+    // Set value $value for attribute $name 
+}
+```   
+
+#### Get mutator callback function
+The callback function for a get mutators must accept two arguments. First is the
+attribute name, second is the attribute specific configuration. It should return the
+attribute value for a given attribute name. Note, that you can not use Laravel's
+attribute casting feature for a dynamic mutated attribute, but it's quite easy to 
+implement our own castings. 
+
+```php
+/**
+ * Get attribute translation.
+ *
+ * @return void
+ */
+public function setAttributeTranslation($name, $config=null)
+{
+    // Get value for attribute $name 
+}
+```   
+
+
+
 
 ### Changelog
 
