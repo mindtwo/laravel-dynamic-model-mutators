@@ -3,6 +3,8 @@
 namespace mindtwo\LaravelDynamicModelMutators;
 
 use mindtwo\LaravelDynamicModelMutators\Exceptions\MutatorNotCallableException;
+use mindtwo\LaravelDynamicModelMutators\Exceptions\MutatorNotDefinedException;
+use mindtwo\LaravelDynamicModelMutators\Exceptions\MutatorOperatorNotDefinedException;
 
 trait DynamicModelMutator
 {
@@ -16,98 +18,164 @@ trait DynamicModelMutator
     /**
      * Dynamically set attributes on the model.
      *
-     * @param mixed $key
+     * @param mixed $attributeName
      * @param mixed $value
+     *
+     * @throws MutatorNotDefinedException
+     * @throws MutatorOperatorNotDefinedException
      *
      * @return self|null
      */
-    public function setAttribute($key, $value): ?self
+    public function setAttribute($attributeName, $value): ?self
     {
-        foreach (self::$dynamic_mutators['set'] ?? [] as $mutatorKey => $callable) {
-            if ($this->checkDynamicMutatorValues($mutatorKey, $key)) {
-                return $this->$callable($key, $value);
+        foreach (self::$dynamic_mutators['set'] ?? [] as $mutatorName => $callable) {
+            if ($this->hasDynamicMutator($attributeName, $mutatorName, 'set')) {
+                return $this->callDynamicMutator($attributeName, $mutatorName, $value, 'set');
             }
         }
 
-        return parent::setAttribute($key, $value);
+        return parent::setAttribute($attributeName, $value);
     }
 
     /**
      * Dynamically retrieve attributes on the model.
      *
-     * @param mixed $key
+     * @param mixed $attributeName
+     *
+     * @throws MutatorNotDefinedException
+     * @throws MutatorOperatorNotDefinedException
      *
      * @return mixed
      */
-    public function getAttribute($key)
+    public function getAttribute($attributeName)
     {
-        foreach (self::$dynamic_mutators['get'] ?? [] as $mutatorKey => $callable) {
-            if ($this->checkDynamicMutatorValues($mutatorKey, $key)) {
-                return $this->$callable($key);
+        foreach (self::$dynamic_mutators['get'] ?? [] as $mutatorName => $callable) {
+            if ($this->hasDynamicMutator($attributeName, $mutatorName)) {
+                return $this->callDynamicMutator($attributeName, $mutatorName);
             }
         }
 
-        return parent::getAttribute($key);
+        return parent::getAttribute($attributeName);
     }
 
     /**
-     * Determinate if a mutator value is set.
+     * Call a dynamic mutator.
      *
-     * @param $mutatorKey
-     * @param $key
+     * @param string $attributeName
+     * @param string $mutatorName
+     * @param null   $value
+     * @param $operator
+     *
+     * @throws MutatorNotDefinedException
+     * @throws MutatorOperatorNotDefinedException
+     *
+     * @return mixed
+     */
+    protected function callDynamicMutator(string $attributeName, string $mutatorName, $value = null, $operator = 'get')
+    {
+        $method = $this->getDynamicMutatorMethodOrFail($attributeName, $mutatorName, $operator);
+        $config = isset($this->$mutatorName[$attributeName]) ? $this->$mutatorName[$attributeName] : null;
+
+        switch ($operator) {
+            case 'set':
+                return $this->$method($attributeName, $value, $config);
+            case 'get':
+                return $this->$method($attributeName, $config);
+            default:
+                throw new MutatorOperatorNotDefinedException();
+        }
+    }
+
+    /**
+     * Determinate if a dynamic mutator is defined.
+     *
+     * @param string $attributeName
+     * @param string $mutatorName
+     * @param string $operator
      *
      * @return bool
      */
-    protected function checkDynamicMutatorValues($mutatorKey, $key): bool
+    protected function hasDynamicMutator(string $attributeName, string $mutatorName, string $operator = 'get'): bool
     {
-        if (! is_array($this->$mutatorKey)) {
+        if (! isset(self::$dynamic_mutators[$operator][$mutatorName]) && ! isset($this->$mutatorName)) {
             return false;
         }
 
-        return ! empty($this->$mutatorKey[$key]) || in_array($key, $this->$mutatorKey);
+        if (! isset($this->$mutatorName[$attributeName]) && ! in_array($attributeName, $this->$mutatorName)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Determinate if a dynamic mutator is defined.
+     *
+     * @param string $attributeName
+     * @param string $mutatorName
+     * @param string $operator
+     *
+     * @throws MutatorNotDefinedException
+     *
+     * @return bool
+     */
+    protected function getDynamicMutatorMethodOrFail(string $attributeName, string $mutatorName, string $operator = 'get')
+    {
+        if (! $this->hasDynamicMutator($attributeName, $mutatorName, $operator)) {
+            throw new MutatorNotDefinedException(sprintf('There is no "%s" mutator with name "%s" defined ', $operator, $name));
+        }
+
+        return self::$dynamic_mutators[$operator][$mutatorName];
     }
 
     /**
      * Register set mutator.
      *
-     * @param string $name
-     * @param string $callableMethod
+     * @param string $mutatorName
+     * @param string $methodName
      *
      * @throws MutatorNotCallableException
+     * @throws MutatorOperatorNotDefinedException
      */
-    protected static function registerSetMutator(string $name, string $callableMethod)
+    protected static function registerSetMutator(string $mutatorName, string $methodName)
     {
-        self::registerMutator('set', $name, $callableMethod);
+        self::registerMutator('set', $mutatorName, $methodName);
     }
 
     /**
      * Register get mutator.
      *
-     * @param string $name
-     * @param string $callableMethod
+     * @param string $mutatorName
+     * @param string $methodName
      *
      * @throws MutatorNotCallableException
+     * @throws MutatorOperatorNotDefinedException
      */
-    protected static function registerGetMutator(string $name, string $callableMethod)
+    protected static function registerGetMutator(string $mutatorName, string $methodName)
     {
-        self::registerMutator('get', $name, $callableMethod);
+        self::registerMutator('get', $mutatorName, $methodName);
     }
 
     /**
      * Register mutator.
      *
      * @param string $operator
-     * @param string $name
-     * @param string $callableMethod
+     * @param string $mutatorName
+     * @param string $methodName
      *
      * @throws MutatorNotCallableException
+     * @throws MutatorOperatorNotDefinedException
      */
-    protected static function registerMutator(string $operator, string $name, string $callableMethod)
+    protected static function registerMutator(string $operator, string $mutatorName, string $methodName)
     {
-        if (! is_callable([new static(), $callableMethod]) || ! method_exists(new static(), $callableMethod)) {
-            throw new MutatorNotCallableException(sprintf('"%s" Mutator for "%s" is not callable', $operator, $name));
+        if ('get' != $operator && 'set' != $operator) {
+            throw new MutatorOperatorNotDefinedException();
         }
 
-        self::$dynamic_mutators[$operator][$name] = $callableMethod;
+        if (! method_exists(new static(), $methodName)) {
+            throw new MutatorNotCallableException(sprintf('"%s" Mutator for "%s" is not callable', $operator, $mutatorName));
+        }
+
+        self::$dynamic_mutators[$operator][$mutatorName] = $methodName;
     }
 }
