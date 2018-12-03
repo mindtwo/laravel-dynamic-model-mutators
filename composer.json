@@ -28,7 +28,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "mindtwo\\LaravelDynamicModelMutators\\Tests\\": "tests/"
         }
     }
 }
