@@ -9,7 +9,6 @@ class DynamicMutatorModel extends Model
 {
     use DynamicModelMutator;
 
-
     protected $guarded = [];
 
     protected $example_mutations = [
