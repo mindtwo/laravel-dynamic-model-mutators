@@ -2,8 +2,8 @@
 
 namespace mindtwo\LaravelDynamicModelMutators;
 
-use mindtwo\LaravelDynamicModelMutators\Exceptions\MutatorNotCallableException;
 use mindtwo\LaravelDynamicModelMutators\Exceptions\MutatorNotDefinedException;
+use mindtwo\LaravelDynamicModelMutators\Exceptions\MutatorNotCallableException;
 use mindtwo\LaravelDynamicModelMutators\Exceptions\MutatorOperatorNotDefinedException;
 
 trait DynamicModelMutator
@@ -101,7 +101,7 @@ trait DynamicModelMutator
             return false;
         }
 
-        if (!array_key_exists($attributeName, $this->$mutatorName) && ! in_array($attributeName, $this->$mutatorName)) {
+        if (! array_key_exists($attributeName, $this->$mutatorName) && ! in_array($attributeName, $this->$mutatorName)) {
             return false;
         }
 
