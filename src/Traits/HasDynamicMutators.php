@@ -26,7 +26,7 @@ trait HasDynamicMutators
     {
         foreach (self::$mutation_handlers as $handler) {
             $handler->setModel($this);
-            if ($handler->hasGetMutator($name)) {
+            if ($handler->hasSetMutator($name)) {
                 $result = $handler->callSetMutator($name, $value);
 
                 if (! $handler->shouldStack(MutationHandlerInterface::OPERATOR_SET)) {

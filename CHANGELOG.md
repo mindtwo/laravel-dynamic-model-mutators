@@ -2,6 +2,11 @@
 
 All notable changes to `laravel-dynamic-model-mutators` will be documented in this file
 
+
+## 2.0.1
+
+- Fixed set mutator function issue
+
 ## 2.0.0
 
 - Complete refactoring
