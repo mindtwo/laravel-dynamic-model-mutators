@@ -2,11 +2,11 @@
 
 namespace Mindtwo\DynamicMutators\Tests\Unit;
 
-use Mindtwo\DynamicMutators\Exceptions\DynamicMutatorNotCallableException;
-use Mindtwo\DynamicMutators\Exceptions\DynamicMutatorNotDefinedException;
-use Mindtwo\DynamicMutators\Handler\MutationHandler;
-use Mindtwo\DynamicMutators\Tests\Mocks\MockModel;
 use Mindtwo\DynamicMutators\Tests\TestCase;
+use Mindtwo\DynamicMutators\Tests\Mocks\MockModel;
+use Mindtwo\DynamicMutators\Handler\MutationHandler;
+use Mindtwo\DynamicMutators\Exceptions\DynamicMutatorNotDefinedException;
+use Mindtwo\DynamicMutators\Exceptions\DynamicMutatorNotCallableException;
 
 class MutationHandlerTest extends TestCase
 {
