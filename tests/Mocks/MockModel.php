@@ -2,9 +2,9 @@
 
 namespace Mindtwo\DynamicMutators\Tests\Mocks;
 
-use Mindtwo\DynamicMutators\Exceptions\InvalidParameterException;
-use Mindtwo\DynamicMutators\Facades\Handler;
 use Mindtwo\DynamicMutators\Model;
+use Mindtwo\DynamicMutators\Facades\Handler;
+use Mindtwo\DynamicMutators\Exceptions\InvalidParameterException;
 
 class MockModel extends Model
 {

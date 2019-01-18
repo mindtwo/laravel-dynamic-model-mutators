@@ -2,8 +2,8 @@
 
 namespace Mindtwo\DynamicMutators\Tests\Feature;
 
-use Mindtwo\DynamicMutators\Tests\Mocks\MockModel;
 use Mindtwo\DynamicMutators\Tests\TestCase;
+use Mindtwo\DynamicMutators\Tests\Mocks\MockModel;
 
 class DynamicModelMutatorTest extends TestCase
 {

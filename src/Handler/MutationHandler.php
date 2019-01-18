@@ -2,11 +2,11 @@
 
 namespace Mindtwo\DynamicMutators\Handler;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use Mindtwo\DynamicMutators\Exceptions\DynamicMutatorNotCallableException;
-use Mindtwo\DynamicMutators\Exceptions\DynamicMutatorNotDefinedException;
+use Illuminate\Database\Eloquent\Model;
 use Mindtwo\DynamicMutators\Interfaces\MutationHandlerInterface;
+use Mindtwo\DynamicMutators\Exceptions\DynamicMutatorNotDefinedException;
+use Mindtwo\DynamicMutators\Exceptions\DynamicMutatorNotCallableException;
 
 class MutationHandler implements MutationHandlerInterface
 {

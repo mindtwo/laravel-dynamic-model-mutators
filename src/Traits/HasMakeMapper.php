@@ -2,8 +2,8 @@
 
 namespace Mindtwo\DynamicMutators\Traits;
 
-use Mindtwo\DynamicMutators\Exceptions\InvalidParameterException;
 use Mindtwo\DynamicMutators\Handler\MutationHandler;
+use Mindtwo\DynamicMutators\Exceptions\InvalidParameterException;
 
 trait HasMakeMapper
 {
