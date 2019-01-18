@@ -1,89 +1,35 @@
 <?php
 
-namespace mindtwo\LaravelDynamicModelMutators\Tests\Feature;
+namespace Mindtwo\DynamicMutators\Tests\Feature;
 
-use mindtwo\LaravelDynamicModelMutators\Tests\TestCase;
-use mindtwo\LaravelDynamicModelMutators\Tests\Mocks\DynamicMutatorModel;
-use mindtwo\LaravelDynamicModelMutators\Exceptions\MutatorNotCallableException;
-use mindtwo\LaravelDynamicModelMutators\Exceptions\MutatorOperatorNotDefinedException;
+use Mindtwo\DynamicMutators\Tests\Mocks\MockModel;
+use Mindtwo\DynamicMutators\Tests\TestCase;
 
 class DynamicModelMutatorTest extends TestCase
 {
-    /**
-     * Set and get mutated attributes test.
-     *
-     * @test
-     */
-    public function testSetAndGetMutatedAttributes()
+    public function testDynamicMutators()
     {
-        $model = new DynamicMutatorModel();
+        $model = new MockModel();
 
-        $model->attribute_1 = 'Example';
-        $model->attribute_2 = 'Example';
-        $model->attribute_3 = 'Example';
+        $model->property1 = 'Property Test';
+        $model->property2 = 'Property 2 Test';
 
-        $this->assertEquals('Example', $model->attribute_1);
-        $this->assertEquals('example', $model->attribute_2);
-        $this->assertEquals('EXAMPLE', $model->attribute_3);
+        $this->assertEquals('Property Test', $model->property1);
+        $this->assertEquals('Property 2 Test', $model->property2);
+        $this->assertEquals('string-param', $model->setter_arguments['property1']);
+        $this->assertEquals(['array', 'param'], $model->setter_arguments['property2']);
     }
 
-    /**
-     * Fill mutated attributes test.
-     *
-     * @test
-     */
-    public function testFillAndGetMutatedAttribute()
+    public function testDynamicMutatorsUseAppends()
     {
-        $model = new DynamicMutatorModel([
-            'attribute_1' => 'Example',
-            'attribute_2' => 'Example',
-            'attribute_3' => 'Example',
-        ]);
+        $model = new MockModel();
 
-        $this->assertEquals('Example', $model->attribute_1);
-        $this->assertEquals('example', $model->attribute_2);
-        $this->assertEquals('EXAMPLE', $model->attribute_3);
-    }
+        $model->property1 = 'Property Test';
+        $model->property2 = 'Property 2 Test';
 
-    /**
-     * Throws an exception, if getter method is not callable.
-     *
-     * @test
-     */
-    public function testThrowsAnExceptionIfGetterMethodIsNotCallable()
-    {
-        $model = new DynamicMutatorModel();
+        $array = $model->toArray();
 
-        $this->expectException(MutatorNotCallableException::class);
-
-        $model::registerGetMutator('test', 'noneExistingMethod');
-    }
-
-    /**
-     * Throws an exception, if setter method is not callable.
-     *
-     * @test
-     */
-    public function testThrowsAnExceptionIfSetterMethodIsNotCallable()
-    {
-        $model = new DynamicMutatorModel();
-
-        $this->expectException(MutatorNotCallableException::class);
-
-        $model::registerSetMutator('test', 'noneExistingMethod');
-    }
-
-    /**
-     * Throws an exception, if mutator operator is invalid.
-     *
-     * @test
-     */
-    public function testThrowsAnExceptionIfMutatorOperatorIsInvalid()
-    {
-        $model = new DynamicMutatorModel();
-
-        $this->expectException(MutatorOperatorNotDefinedException::class);
-
-        $model::registerMutator('invalid', 'example_mutations', 'exampleGetMutator');
+        $this->assertEquals('Property Test', $array['property1']);
+        $this->assertEquals('Property 2 Test', $array['property2']);
     }
 }
