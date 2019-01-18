@@ -6,9 +6,9 @@
 [![Total Downloads](https://poser.pugx.org/mindtwo/laravel-dynamic-model-mutators/downloads)](https://packagist.org/packages/mindtwo/laravel-dynamic-model-mutators)
 [![License](https://poser.pugx.org/mindtwo/laravel-dynamic-model-mutators/license)](https://packagist.org/packages/mindtwo/laravel-dynamic-model-mutators)
 
-> Important Notice:
+> ## Important Notice:
 > The following documentation refers to packacke version 1.x
-> We will add documentation for version 2.x as soon as possible. Sorry.
+> <br>We will add documentation for version 2.x as soon as possible. Sorry.
 
 
 ## Introduction
