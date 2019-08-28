@@ -4,6 +4,7 @@ namespace Mindtwo\DynamicMutators\Traits;
 
 use Mindtwo\DynamicMutators\Handler\Handler;
 use Mindtwo\DynamicMutators\Interfaces\MutationHandlerInterface;
+use Illuminate\Support\Str;
 
 trait HasDynamicMutators
 {
@@ -78,7 +79,7 @@ trait HasDynamicMutators
     public function __call($name, $arguments)
     {
         if (preg_match('/^(set|get)(.+)Attribute$/', $name, $matches)) {
-            $key = snake_case($matches[2]);
+            $key = Str::snake($matches[2]);
             foreach (self::$mutation_handlers as $handler) {
                 $handler->setModel($this);
                 if ($handler->hasGetMutator($key)) {

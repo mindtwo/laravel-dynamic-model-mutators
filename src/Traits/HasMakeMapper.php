@@ -2,6 +2,7 @@
 
 namespace Mindtwo\DynamicMutators\Traits;
 
+use Illuminate\Support\Str;
 use Mindtwo\DynamicMutators\Handler\MutationHandler;
 use Mindtwo\DynamicMutators\Exceptions\InvalidParameterException;
 
@@ -57,8 +58,8 @@ trait HasMakeMapper
 
             if (array_key_exists($name, $arguments)) {
                 $value = $arguments[$name];
-            } elseif (array_key_exists(snake_case($name), $arguments)) {
-                $value = $arguments[snake_case($name)];
+            } elseif (array_key_exists(Str::snake($name), $arguments)) {
+                $value = $arguments[Str::snake($name)];
             } elseif ($parameter->isDefaultValueAvailable()) {
                 $value = $parameter->getDefaultValue();
             } else {
