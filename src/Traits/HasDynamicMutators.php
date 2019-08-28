@@ -2,9 +2,9 @@
 
 namespace Mindtwo\DynamicMutators\Traits;
 
+use Illuminate\Support\Str;
 use Mindtwo\DynamicMutators\Handler\Handler;
 use Mindtwo\DynamicMutators\Interfaces\MutationHandlerInterface;
-use Illuminate\Support\Str;
 
 trait HasDynamicMutators
 {
