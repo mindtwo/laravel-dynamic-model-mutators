@@ -14,7 +14,7 @@
     "minimum-stability": "dev",
     "prefer-stable": false,
     "require": {
-        "php": "^7.3",
+        "php": "^7.2",
         "illuminate/database": "5.6.*|5.7.*|5.8.*|6.*",
         "illuminate/support": "5.6.*|5.7.*|5.8.*|6.*"
     },
