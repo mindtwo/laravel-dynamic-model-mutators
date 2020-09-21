@@ -2,10 +2,10 @@
 
 namespace Mindtwo\DynamicMutators\Tests\Unit;
 
-use Mindtwo\DynamicMutators\Tests\TestCase;
+use Mindtwo\DynamicMutators\Exceptions\InvalidParameterException;
 use Mindtwo\DynamicMutators\Facades\Handler;
 use Mindtwo\DynamicMutators\Tests\Mocks\MockModel;
-use Mindtwo\DynamicMutators\Exceptions\InvalidParameterException;
+use Mindtwo\DynamicMutators\Tests\TestCase;
 
 class HandlerFacadeTest extends TestCase
 {
