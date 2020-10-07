@@ -20,10 +20,8 @@ trait HasDynamicMutators
      *
      * @param string $name
      * @param mixed  $value
-     *
-     * @return self|null
      */
-    public function setAttribute($name, $value): ?self
+    public function setAttribute($name, $value)
     {
         foreach (self::$mutation_handlers as $handler) {
             $handler->setModel($this);
