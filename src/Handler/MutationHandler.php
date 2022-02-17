@@ -34,7 +34,7 @@ class MutationHandler implements MutationHandlerInterface
     /**
      * Mutation handler constructor.
      *
-     * @param string $name
+     * @param  string  $name
      */
     public function __construct(string $name, array $getMutator = [], array $setMutator = [])
     {
@@ -53,7 +53,6 @@ class MutationHandler implements MutationHandlerInterface
      * Set related model.
      *
      * @param $model
-     *
      * @return MutationHandler
      */
     public function setModel(&$model): self
@@ -76,9 +75,8 @@ class MutationHandler implements MutationHandlerInterface
     /**
      * Get mutator config.
      *
-     * @param string $operator
-     * @param string $key
-     *
+     * @param  string  $operator
+     * @param  string  $key
      * @return mixed
      */
     protected function config(string $operator, string $key = null)
@@ -91,11 +89,10 @@ class MutationHandler implements MutationHandlerInterface
     /**
      * Register mutator.
      *
-     * @param string          $operator
-     * @param callable|string $callable
-     * @param bool            $stack
-     * @param string|null     $property
-     *
+     * @param  string  $operator
+     * @param  callable|string  $callable
+     * @param  bool  $stack
+     * @param  string|null  $property
      * @return MutationHandler
      */
     protected function registerMutator(string $operator, $callable, bool $stack = false, string $property = null): self
@@ -112,10 +109,9 @@ class MutationHandler implements MutationHandlerInterface
     /**
      * Register set mutator.
      *
-     * @param callable|string $callable
-     * @param bool            $stack
-     * @param string|null     $property
-     *
+     * @param  callable|string  $callable
+     * @param  bool  $stack
+     * @param  string|null  $property
      * @return MutationHandler
      */
     public function registerSetMutator($callable, bool $stack = false, string $property = null): self
@@ -126,10 +122,9 @@ class MutationHandler implements MutationHandlerInterface
     /**
      * Register get mutator.
      *
-     * @param callable|string $callable
-     * @param bool            $stack
-     * @param string|null     $property
-     *
+     * @param  callable|string  $callable
+     * @param  bool  $stack
+     * @param  string|null  $property
      * @return MutationHandler
      */
     public function registerGetMutator($callable, bool $stack = false, string $property = null): self
@@ -140,12 +135,11 @@ class MutationHandler implements MutationHandlerInterface
     /**
      * Return a valid mutator name or throw an exceptions.
      *
-     * @param string $name
-     * @param string $operator
+     * @param  string  $name
+     * @param  string  $operator
+     * @return string
      *
      * @throws DynamicMutatorNotDefinedException
-     *
-     * @return string
      */
     protected function mutatorNameOrFail(string $name, string $operator): string
     {
@@ -164,10 +158,9 @@ class MutationHandler implements MutationHandlerInterface
      * Get callable or throw an exception.
      *
      * @param $callable
+     * @return callable
      *
      * @throws DynamicMutatorNotCallableException
-     *
-     * @return callable
      */
     protected function callableOrFail(string $operator): callable
     {
@@ -190,9 +183,8 @@ class MutationHandler implements MutationHandlerInterface
     /**
      * Determinate if a mutator exists.
      *
-     * @param string $name
-     * @param string $operator
-     *
+     * @param  string  $name
+     * @param  string  $operator
      * @return bool
      */
     protected function hasMutator(string $name, string $operator): bool
@@ -204,8 +196,7 @@ class MutationHandler implements MutationHandlerInterface
     /**
      * Determinate if a get mutator exists.
      *
-     * @param string $name
-     *
+     * @param  string  $name
      * @return bool
      */
     public function hasGetMutator(string $name): bool
@@ -216,8 +207,7 @@ class MutationHandler implements MutationHandlerInterface
     /**
      * Determinate if a set mutator exists.
      *
-     * @param string $name
-     *
+     * @param  string  $name
      * @return bool
      */
     public function hasSetMutator(string $name): bool
@@ -257,7 +247,6 @@ class MutationHandler implements MutationHandlerInterface
      * Determinate if the next mutator should be called.
      *
      * @param $operator
-     *
      * @return bool
      */
     public function shouldStack($operator): bool

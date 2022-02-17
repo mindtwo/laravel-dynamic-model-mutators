@@ -21,11 +21,10 @@ trait HasMakeMapper
     /**
      * Make new instance.
      *
-     * @param array $arguments
+     * @param  array  $arguments
+     * @return object
      *
      * @throws InvalidParameterException
-     *
-     * @return object
      */
     public static function make(array $arguments = [])
     {
@@ -44,12 +43,11 @@ trait HasMakeMapper
     /**
      * Compose make() parameters.
      *
-     * @param array $parameters
-     * @param array $arguments
+     * @param  array  $parameters
+     * @param  array  $arguments
+     * @return array
      *
      * @throws InvalidParameterException
-     *
-     * @return array
      */
     protected static function composeMakeParameters(array $parameters, array $arguments = []): array
     {

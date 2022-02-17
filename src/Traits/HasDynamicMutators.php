@@ -18,8 +18,8 @@ trait HasDynamicMutators
     /**
      * Set attribute.
      *
-     * @param string $name
-     * @param mixed  $value
+     * @param  string  $name
+     * @param  mixed  $value
      */
     public function setAttribute($name, $value)
     {
@@ -40,8 +40,7 @@ trait HasDynamicMutators
     /**
      * Get attribute.
      *
-     * @param mixed $name
-     *
+     * @param  mixed  $name
      * @return mixed
      */
     public function getAttribute($name)
@@ -59,7 +58,7 @@ trait HasDynamicMutators
     /**
      * Register a mutation handler.
      *
-     * @param MutationHandlerInterface $handler
+     * @param  MutationHandlerInterface  $handler
      */
     public static function registerMutationHandler(MutationHandlerInterface $handler)
     {
@@ -71,7 +70,6 @@ trait HasDynamicMutators
      *
      * @param $name
      * @param $arguments
-     *
      * @return mixed
      */
     public function __call($name, $arguments)

@@ -48,10 +48,9 @@ class MockModel extends Model
     /**
      * Example set mutator.
      *
-     * @param string $key
-     * @param mixed  $value
-     * @param array  $arguments
-     *
+     * @param  string  $key
+     * @param  mixed  $value
+     * @param  array  $arguments
      * @return $this
      */
     public function exampleSet(string $key, $value, $arguments = [])
@@ -65,9 +64,8 @@ class MockModel extends Model
     /**
      * Example get mutator.
      *
-     * @param string $key
-     * @param array  $arguments
-     *
+     * @param  string  $key
+     * @param  array  $arguments
      * @return mixed|null
      */
     public function exampleGet(string $key, $arguments = [])
