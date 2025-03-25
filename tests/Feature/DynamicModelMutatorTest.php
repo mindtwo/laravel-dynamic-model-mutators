@@ -7,9 +7,9 @@ use Mindtwo\DynamicMutators\Tests\TestCase;
 
 class DynamicModelMutatorTest extends TestCase
 {
-    public function testDynamicMutators()
+    public function test_dynamic_mutators()
     {
-        $model = new MockModel();
+        $model = new MockModel;
 
         $model->property1 = 'Property Test';
         $model->property2 = 'Property 2 Test';
@@ -20,9 +20,9 @@ class DynamicModelMutatorTest extends TestCase
         $this->assertEquals(['array', 'param'], $model->setter_arguments['property2']);
     }
 
-    public function testDynamicMutatorsUseAppends()
+    public function test_dynamic_mutators_use_appends()
     {
-        $model = new MockModel();
+        $model = new MockModel;
 
         $model->property1 = 'Property Test';
         $model->property2 = 'Property 2 Test';

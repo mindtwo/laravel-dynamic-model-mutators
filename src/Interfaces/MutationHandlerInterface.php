@@ -5,13 +5,14 @@ namespace Mindtwo\DynamicMutators\Interfaces;
 interface MutationHandlerInterface
 {
     const OPERATOR_GET = 'get';
+
     const OPERATOR_SET = 'set';
 
     public function getName(): string;
 
-    public function registerSetMutator($callable, bool $stack = false, string $property = null);
+    public function registerSetMutator($callable, bool $stack = false, ?string $property = null): self;
 
-    public function registerGetMutator($callable, bool $stack = false, string $property = null);
+    public function registerGetMutator($callable, bool $stack = false, ?string $property = null): self;
 
     public function hasGetMutator(string $name): bool;
 
@@ -21,5 +22,5 @@ interface MutationHandlerInterface
 
     public function callSetMutator(string $name, $value);
 
-    public function setModel(&$model);
+    public function setModel(&$model): self;
 }

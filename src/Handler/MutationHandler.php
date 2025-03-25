@@ -27,14 +27,12 @@ class MutationHandler implements MutationHandlerInterface
     /**
      * Mutator settings.
      *
-     * @var array
+     * @var array<string, array<string, mixed>>
      */
     protected $mutators = [];
 
     /**
      * Mutation handler constructor.
-     *
-     * @param  string  $name
      */
     public function __construct(string $name, array $getMutator = [], array $setMutator = [])
     {
@@ -51,9 +49,6 @@ class MutationHandler implements MutationHandlerInterface
 
     /**
      * Set related model.
-     *
-     * @param $model
-     * @return MutationHandler
      */
     public function setModel(&$model): self
     {
@@ -64,8 +59,6 @@ class MutationHandler implements MutationHandlerInterface
 
     /**
      * Get mutation handler name.
-     *
-     * @return string
      */
     public function getName(): string
     {
@@ -75,11 +68,9 @@ class MutationHandler implements MutationHandlerInterface
     /**
      * Get mutator config.
      *
-     * @param  string  $operator
-     * @param  string  $key
      * @return mixed
      */
-    protected function config(string $operator, string $key = null)
+    protected function config(string $operator, ?string $key = null)
     {
         if (isset($this->mutators[$operator])) {
             return is_null($key) ? $this->mutators[$operator] : $this->mutators[$operator][$key];
@@ -89,17 +80,13 @@ class MutationHandler implements MutationHandlerInterface
     /**
      * Register mutator.
      *
-     * @param  string  $operator
      * @param  callable|string  $callable
-     * @param  bool  $stack
-     * @param  string|null  $property
-     * @return MutationHandler
      */
-    protected function registerMutator(string $operator, $callable, bool $stack = false, string $property = null): self
+    protected function registerMutator(string $operator, $callable, bool $stack = false, ?string $property = null): self
     {
         $this->mutators[$operator] = [
             'callable' => $callable,
-            'stack'    => $stack,
+            'stack' => $stack,
             'property' => $property ?? $this->name,
         ];
 
@@ -110,11 +97,8 @@ class MutationHandler implements MutationHandlerInterface
      * Register set mutator.
      *
      * @param  callable|string  $callable
-     * @param  bool  $stack
-     * @param  string|null  $property
-     * @return MutationHandler
      */
-    public function registerSetMutator($callable, bool $stack = false, string $property = null): self
+    public function registerSetMutator($callable, bool $stack = false, ?string $property = null): self
     {
         return $this->registerMutator(self::OPERATOR_SET, $callable, $stack, $property);
     }
@@ -123,11 +107,8 @@ class MutationHandler implements MutationHandlerInterface
      * Register get mutator.
      *
      * @param  callable|string  $callable
-     * @param  bool  $stack
-     * @param  string|null  $property
-     * @return MutationHandler
      */
-    public function registerGetMutator($callable, bool $stack = false, string $property = null): self
+    public function registerGetMutator($callable, bool $stack = false, ?string $property = null): self
     {
         return $this->registerMutator(self::OPERATOR_GET, $callable, $stack, $property);
     }
@@ -135,9 +116,6 @@ class MutationHandler implements MutationHandlerInterface
     /**
      * Return a valid mutator name or throw an exceptions.
      *
-     * @param  string  $name
-     * @param  string  $operator
-     * @return string
      *
      * @throws DynamicMutatorNotDefinedException
      */
@@ -145,9 +123,9 @@ class MutationHandler implements MutationHandlerInterface
     {
         if (! $this->hasMutator($name, $operator)) {
             throw new DynamicMutatorNotDefinedException('Mutator not defined!', 0, null, [
-                'name'     => $name,
+                'name' => $name,
                 'operator' => $operator,
-                'handler'  => $this->getName(),
+                'handler' => $this->getName(),
             ]);
         }
 
@@ -157,8 +135,7 @@ class MutationHandler implements MutationHandlerInterface
     /**
      * Get callable or throw an exception.
      *
-     * @param $callable
-     * @return callable
+     * @param  $callable
      *
      * @throws DynamicMutatorNotCallableException
      */
@@ -176,16 +153,12 @@ class MutationHandler implements MutationHandlerInterface
 
         throw new DynamicMutatorNotCallableException('The given callable is invalid!', 0, null, [
             'callable' => $callable,
-            'handler'  => $this->getName(),
+            'handler' => $this->getName(),
         ]);
     }
 
     /**
      * Determinate if a mutator exists.
-     *
-     * @param  string  $name
-     * @param  string  $operator
-     * @return bool
      */
     protected function hasMutator(string $name, string $operator): bool
     {
@@ -195,9 +168,6 @@ class MutationHandler implements MutationHandlerInterface
 
     /**
      * Determinate if a get mutator exists.
-     *
-     * @param  string  $name
-     * @return bool
      */
     public function hasGetMutator(string $name): bool
     {
@@ -206,20 +176,30 @@ class MutationHandler implements MutationHandlerInterface
 
     /**
      * Determinate if a set mutator exists.
-     *
-     * @param  string  $name
-     * @return bool
      */
     public function hasSetMutator(string $name): bool
     {
         return $this->hasMutator($name, self::OPERATOR_SET);
     }
 
+    /**
+     * Get mutator properties as collection.
+     */
     protected function getMutatorProperties(string $operator): Collection
     {
-        return collect($this->model->{$this->config($operator, 'property')} ?? []);
+        $property = $this->config($operator, 'property');
+
+        return collect($property ? ($this->model->{$property} ?? []) : []);
     }
 
+    /**
+     * Call get mutator.
+     *
+     * @return mixed
+     *
+     * @throws DynamicMutatorNotCallableException
+     * @throws DynamicMutatorNotDefinedException
+     */
     public function callGetMutator(string $name)
     {
         $name = $this->mutatorNameOrFail($name, self::OPERATOR_GET);
@@ -231,6 +211,15 @@ class MutationHandler implements MutationHandlerInterface
         ]);
     }
 
+    /**
+     * Call set mutator.
+     *
+     * @param  mixed  $value
+     * @return mixed
+     *
+     * @throws DynamicMutatorNotCallableException
+     * @throws DynamicMutatorNotDefinedException
+     */
     public function callSetMutator(string $name, $value)
     {
         $name = $this->mutatorNameOrFail($name, self::OPERATOR_SET);
@@ -245,12 +234,9 @@ class MutationHandler implements MutationHandlerInterface
 
     /**
      * Determinate if the next mutator should be called.
-     *
-     * @param $operator
-     * @return bool
      */
-    public function shouldStack($operator): bool
+    public function shouldStack(string $operator): bool
     {
-        return $this->config($operator, 'stack');
+        return (bool) ($this->config($operator, 'stack') ?? false);
     }
 }
