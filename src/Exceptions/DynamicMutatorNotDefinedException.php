@@ -2,6 +2,4 @@
 
 namespace Mindtwo\DynamicMutators\Exceptions;
 
-class DynamicMutatorNotDefinedException extends DynamicMutatorException
-{
-}
+class DynamicMutatorNotDefinedException extends DynamicMutatorException {}

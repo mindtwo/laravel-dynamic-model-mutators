@@ -9,13 +9,8 @@ class DynamicMutatorException extends Exception
 {
     /**
      * DynamicMutatorException constructor.
-     *
-     * @param  string  $message
-     * @param  int  $code
-     * @param  Throwable|null  $previous
-     * @param  array  $dump
      */
-    public function __construct(string $message = '', int $code = 0, Throwable $previous = null, array $dump = [])
+    public function __construct(string $message = '', int $code = 0, ?Throwable $previous = null, array $dump = [])
     {
         $message = $dump ? $message.$this->dumpToString($dump) : $message;
         parent::__construct($message, $code, $previous);
@@ -23,9 +18,6 @@ class DynamicMutatorException extends Exception
 
     /**
      * Convert dump array to string.
-     *
-     * @param  array  $dump
-     * @return string
      */
     protected function dumpToString(array $dump): string
     {

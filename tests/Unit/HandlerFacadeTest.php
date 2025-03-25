@@ -14,14 +14,14 @@ class HandlerFacadeTest extends TestCase
      *
      * @test
      */
-    public function testMakeWithParametersInOrder()
+    public function test_make_with_parameters_in_order()
     {
-        $model = new MockModel();
+        $model = new MockModel;
 
         $handler = Handler::make([
-            'name'        => 'example',
-            'getMutator'  => ['exampleGet'],
-            'setMutator'  => ['exampleSet'],
+            'name' => 'example',
+            'getMutator' => ['exampleGet'],
+            'setMutator' => ['exampleSet'],
         ])->setModel($model);
 
         $this->assertEquals('example', $handler->getName());
@@ -34,14 +34,14 @@ class HandlerFacadeTest extends TestCase
      *
      * @test
      */
-    public function testMakeWithParametersInSnakeCase()
+    public function test_make_with_parameters_in_snake_case()
     {
-        $model = new MockModel();
+        $model = new MockModel;
 
         $handler = Handler::make([
-            'name'         => 'example',
-            'get_mutator'  => ['exampleGet'],
-            'set_mutator'  => ['exampleSet'],
+            'name' => 'example',
+            'get_mutator' => ['exampleGet'],
+            'set_mutator' => ['exampleSet'],
         ])->setModel($model);
 
         $this->assertEquals('example', $handler->getName());
@@ -54,14 +54,14 @@ class HandlerFacadeTest extends TestCase
      *
      * @test
      */
-    public function testMakeWithParametersDifferentOrder()
+    public function test_make_with_parameters_different_order()
     {
-        $model = new MockModel();
+        $model = new MockModel;
 
         $handler = Handler::make([
-            'getMutator'  => ['exampleGet'],
-            'setMutator'  => ['exampleSet'],
-            'name'        => 'example',
+            'getMutator' => ['exampleGet'],
+            'setMutator' => ['exampleSet'],
+            'name' => 'example',
         ])->setModel($model);
 
         $this->assertEquals('example', $handler->getName());
@@ -74,13 +74,13 @@ class HandlerFacadeTest extends TestCase
      *
      * @test
      */
-    public function testMakeThrowsAnExceptionIfParametersAreMissing()
+    public function test_make_throws_an_exception_if_parameters_are_missing()
     {
         $this->expectException(InvalidParameterException::class);
 
         Handler::make([
-            'getMutator'  => ['exampleGet'],
-            'setMutator'  => ['exampleSet'],
+            'getMutator' => ['exampleGet'],
+            'setMutator' => ['exampleSet'],
         ]);
     }
 }

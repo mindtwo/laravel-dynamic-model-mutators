@@ -21,7 +21,6 @@ trait HasMakeMapper
     /**
      * Make new instance.
      *
-     * @param  array  $arguments
      * @return object
      *
      * @throws InvalidParameterException
@@ -43,15 +42,12 @@ trait HasMakeMapper
     /**
      * Compose make() parameters.
      *
-     * @param  array  $parameters
-     * @param  array  $arguments
-     * @return array
      *
      * @throws InvalidParameterException
      */
     protected static function composeMakeParameters(array $parameters, array $arguments = []): array
     {
-        foreach ($parameters as $key=>$parameter) {
+        foreach ($parameters as $key => $parameter) {
             $name = $parameter->getName();
 
             if (array_key_exists($name, $arguments)) {
@@ -62,10 +58,10 @@ trait HasMakeMapper
                 $value = $parameter->getDefaultValue();
             } else {
                 throw new InvalidParameterException('Invalid parameters for make()!', 0, null, [
-                    'name'       => $name,
-                    'accessor'   => static::getFacadeAccessor(),
+                    'name' => $name,
+                    'accessor' => static::getFacadeAccessor(),
                     'parameters' => $parameters,
-                    'arguments'  => $arguments,
+                    'arguments' => $arguments,
                 ]);
             }
             $result[$parameter->getPosition()] = $value;

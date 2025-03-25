@@ -3,7 +3,6 @@
 namespace Mindtwo\DynamicMutators\Traits;
 
 use Illuminate\Support\Str;
-use Mindtwo\DynamicMutators\Handler\Handler;
 use Mindtwo\DynamicMutators\Interfaces\MutationHandlerInterface;
 
 trait HasDynamicMutators
@@ -11,7 +10,7 @@ trait HasDynamicMutators
     /**
      * Registered mutation handler.
      *
-     * @var MutationHandlerInterface[]
+     * @var array<MutationHandlerInterface>
      */
     private static $mutation_handlers = [];
 
@@ -57,8 +56,6 @@ trait HasDynamicMutators
 
     /**
      * Register a mutation handler.
-     *
-     * @param  MutationHandlerInterface  $handler
      */
     public static function registerMutationHandler(MutationHandlerInterface $handler)
     {
@@ -68,8 +65,6 @@ trait HasDynamicMutators
     /**
      * Magic call method.
      *
-     * @param $name
-     * @param $arguments
      * @return mixed
      */
     public function __call($name, $arguments)

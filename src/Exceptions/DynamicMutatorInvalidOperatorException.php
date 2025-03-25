@@ -2,6 +2,4 @@
 
 namespace Mindtwo\DynamicMutators\Exceptions;
 
-class DynamicMutatorInvalidOperatorException extends DynamicMutatorException
-{
-}
+class DynamicMutatorInvalidOperatorException extends DynamicMutatorException {}

@@ -15,9 +15,9 @@ class MutationHandlerTest extends TestCase
      *
      * @test
      */
-    public function testCreateWithGetMutator()
+    public function test_create_with_get_mutator()
     {
-        $model = new MockModel();
+        $model = new MockModel;
 
         $handler = new MutationHandler('example', ['exampleGet']);
         $handler->setModel($model);
@@ -31,9 +31,9 @@ class MutationHandlerTest extends TestCase
      *
      * @test
      */
-    public function testCreateWithSetMutator()
+    public function test_create_with_set_mutator()
     {
-        $model = new MockModel();
+        $model = new MockModel;
 
         $handler = new MutationHandler('example', [], ['exampleSet']);
         $handler->setModel($model);
@@ -47,11 +47,11 @@ class MutationHandlerTest extends TestCase
      *
      * @test
      */
-    public function testThrowsAnExceptionIfGetMutatorIsNotDefined()
+    public function test_throws_an_exception_if_get_mutator_is_not_defined()
     {
         $this->expectException(DynamicMutatorNotDefinedException::class);
 
-        $model = new MockModel();
+        $model = new MockModel;
         $handler = new MutationHandler('example', [], ['invalidGet']);
         $handler->setModel($model);
 
@@ -63,11 +63,11 @@ class MutationHandlerTest extends TestCase
      *
      * @test
      */
-    public function testThrowsAnExceptionIfSetMutatorIsNotDefined()
+    public function test_throws_an_exception_if_set_mutator_is_not_defined()
     {
         $this->expectException(DynamicMutatorNotDefinedException::class);
 
-        $model = new MockModel();
+        $model = new MockModel;
         $handler = new MutationHandler('example', ['invalidSet']);
         $handler->setModel($model);
 
@@ -79,11 +79,11 @@ class MutationHandlerTest extends TestCase
      *
      * @test
      */
-    public function testThrowsAnExceptionIfGetMutatorIsNotCallable()
+    public function test_throws_an_exception_if_get_mutator_is_not_callable()
     {
         $this->expectException(DynamicMutatorNotCallableException::class);
 
-        $model = new MockModel();
+        $model = new MockModel;
         $handler = new MutationHandler('example', ['invalidGet']);
         $handler->setModel($model);
 
@@ -95,11 +95,11 @@ class MutationHandlerTest extends TestCase
      *
      * @test
      */
-    public function testThrowsAnExceptionIfSetMutatorIsNotCallable()
+    public function test_throws_an_exception_if_set_mutator_is_not_callable()
     {
         $this->expectException(DynamicMutatorNotCallableException::class);
 
-        $model = new MockModel();
+        $model = new MockModel;
         $handler = new MutationHandler('example', [], ['invalidSet']);
         $handler->setModel($model);
 

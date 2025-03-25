@@ -2,6 +2,4 @@
 
 namespace Mindtwo\DynamicMutators\Exceptions;
 
-class InvalidParameterException extends DynamicMutatorException
-{
-}
+class InvalidParameterException extends DynamicMutatorException {}
