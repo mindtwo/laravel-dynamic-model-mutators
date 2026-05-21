@@ -3,6 +3,12 @@
 All notable changes to `laravel-dynamic-model-mutators` will be documented in this file
 
 
+## 2.1.0
+
+- Added Laravel 13 support
+- Added orchestra/testbench ^10.0 and ^11.0 to dev dependency range
+
+
 ## 2.0.1
 
 - Fixed set mutator function issue
