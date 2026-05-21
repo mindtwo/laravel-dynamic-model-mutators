@@ -11,9 +11,11 @@ use Mindtwo\DynamicMutators\Tests\TestCase;
 class MutationHandlerTest extends TestCase
 {
     /**
-     * Create mutation handler with get mutator test.
+     * Assert that a handler can be created with only a get mutator.
      *
      * @test
+     *
+     * @return void
      */
     public function test_create_with_get_mutator()
     {
@@ -27,9 +29,11 @@ class MutationHandlerTest extends TestCase
     }
 
     /**
-     * Create mutation handler with set mutator test.
+     * Assert that a handler can be created with only a set mutator.
      *
      * @test
+     *
+     * @return void
      */
     public function test_create_with_set_mutator()
     {
@@ -43,9 +47,11 @@ class MutationHandlerTest extends TestCase
     }
 
     /**
-     * Throws an exception, if get mutator is not defined test.
+     * Assert that calling an undefined get mutator throws.
      *
      * @test
+     *
+     * @return void
      */
     public function test_throws_an_exception_if_get_mutator_is_not_defined()
     {
@@ -59,9 +65,11 @@ class MutationHandlerTest extends TestCase
     }
 
     /**
-     * Throws an exception, if set mutator is not defined test.
+     * Assert that calling an undefined set mutator throws.
      *
      * @test
+     *
+     * @return void
      */
     public function test_throws_an_exception_if_set_mutator_is_not_defined()
     {
@@ -75,9 +83,11 @@ class MutationHandlerTest extends TestCase
     }
 
     /**
-     * Throws an exception, if get mutator is not callable test.
+     * Assert that a get mutator pointing to a non-callable target throws.
      *
      * @test
+     *
+     * @return void
      */
     public function test_throws_an_exception_if_get_mutator_is_not_callable()
     {
@@ -91,9 +101,11 @@ class MutationHandlerTest extends TestCase
     }
 
     /**
-     * Throws an exception, if set mutator is not callable test.
+     * Assert that a set mutator pointing to a non-callable target throws.
      *
      * @test
+     *
+     * @return void
      */
     public function test_throws_an_exception_if_set_mutator_is_not_callable()
     {

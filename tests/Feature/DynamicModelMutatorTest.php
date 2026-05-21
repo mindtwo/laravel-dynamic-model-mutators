@@ -7,6 +7,11 @@ use Mindtwo\DynamicMutators\Tests\TestCase;
 
 class DynamicModelMutatorTest extends TestCase
 {
+    /**
+     * Assert that dynamic mutators round-trip values and forward configuration.
+     *
+     * @return void
+     */
     public function test_dynamic_mutators()
     {
         $model = new MockModel;
@@ -20,6 +25,11 @@ class DynamicModelMutatorTest extends TestCase
         $this->assertEquals(['array', 'param'], $model->setter_arguments['property2']);
     }
 
+    /**
+     * Assert that dynamically mutated attributes are included in toArray output via $appends.
+     *
+     * @return void
+     */
     public function test_dynamic_mutators_use_appends()
     {
         $model = new MockModel;

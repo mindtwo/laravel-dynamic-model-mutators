@@ -8,7 +8,15 @@ use Throwable;
 class DynamicMutatorException extends Exception
 {
     /**
-     * DynamicMutatorException constructor.
+     * Create a new dynamic mutator exception instance.
+     *
+     * In addition to the usual exception arguments, an associative "dump"
+     * array may be supplied. Its contents are appended to the exception
+     * message so misconfigurations can be diagnosed from the stack trace
+     * alone without needing to inspect a debugger.
+     *
+     * @param  array<string, mixed>  $dump
+     * @return void
      */
     public function __construct(string $message = '', int $code = 0, ?Throwable $previous = null, array $dump = [])
     {
@@ -17,7 +25,12 @@ class DynamicMutatorException extends Exception
     }
 
     /**
-     * Convert dump array to string.
+     * Convert the given dump array into a printable, padded string.
+     *
+     * Scalar values are appended verbatim while structured values are encoded
+     * as JSON so the dump remains a single readable block of text.
+     *
+     * @param  array<string, mixed>  $dump
      */
     protected function dumpToString(array $dump): string
     {

@@ -10,9 +10,11 @@ use Mindtwo\DynamicMutators\Tests\TestCase;
 class HandlerFacadeTest extends TestCase
 {
     /**
-     * Make with parameters in order test.
+     * Assert that make() accepts constructor arguments in their natural order.
      *
      * @test
+     *
+     * @return void
      */
     public function test_make_with_parameters_in_order()
     {
@@ -30,9 +32,11 @@ class HandlerFacadeTest extends TestCase
     }
 
     /**
-     * Make with parameters in snake case test.
+     * Assert that make() accepts snake_case aliases for camelCase parameters.
      *
      * @test
+     *
+     * @return void
      */
     public function test_make_with_parameters_in_snake_case()
     {
@@ -50,9 +54,11 @@ class HandlerFacadeTest extends TestCase
     }
 
     /**
-     * Make with parameters in different order test.
+     * Assert that make() resolves arguments by name regardless of order.
      *
      * @test
+     *
+     * @return void
      */
     public function test_make_with_parameters_different_order()
     {
@@ -70,9 +76,11 @@ class HandlerFacadeTest extends TestCase
     }
 
     /**
-     * Make throws an exception, if parameters are missing test.
+     * Assert that make() throws when a required constructor argument is missing.
      *
      * @test
+     *
+     * @return void
      */
     public function test_make_throws_an_exception_if_parameters_are_missing()
     {

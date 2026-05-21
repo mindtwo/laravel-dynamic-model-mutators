@@ -8,31 +8,68 @@ use Mindtwo\DynamicMutators\Model;
 
 class MockModel extends Model
 {
+    /**
+     * The attributes that are not mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $guarded = [];
 
+    /**
+     * The first mutator-driven property configuration.
+     *
+     * @var array<string, mixed>
+     */
     public $example = [
         'property1' => 'string-param',
         'property2' => ['array', 'param'],
     ];
 
+    /**
+     * The second mutator-driven property configuration.
+     *
+     * @var array<string, mixed>
+     */
     public $example_2 = [
         'property3' => 'string-param',
         'property4' => ['array', 'param'],
     ];
 
+    /**
+     * The in-memory store written to by the set mutator.
+     *
+     * @var array<string, mixed>
+     */
     protected $values = [];
 
+    /**
+     * The arguments passed to the most recent set mutator invocation per attribute.
+     *
+     * @var array<string, mixed>
+     */
     public $setter_arguments = [];
 
+    /**
+     * The arguments passed to the most recent get mutator invocation per attribute.
+     *
+     * @var array<string, mixed>
+     */
     public $getter_arguments = [];
 
+    /**
+     * The accessors that should be appended to the model's array form.
+     *
+     * @var array<int, string>
+     */
     protected $appends = [
         'property1',
         'property2',
     ];
 
     /**
-     * Example model boot method.
+     * Bootstrap the model and its traits.
+     *
+     * @return void
      *
      * @throws InvalidParameterException
      */
@@ -48,10 +85,10 @@ class MockModel extends Model
     }
 
     /**
-     * Example set mutator.
+     * Persist the given value via the registered set mutator.
      *
      * @param  mixed  $value
-     * @param  array  $arguments
+     * @param  mixed  $arguments
      * @return $this
      */
     public function exampleSet(string $key, $value, $arguments = [])
@@ -63,9 +100,9 @@ class MockModel extends Model
     }
 
     /**
-     * Example get mutator.
+     * Resolve the given value via the registered get mutator.
      *
-     * @param  array  $arguments
+     * @param  mixed  $arguments
      * @return mixed|null
      */
     public function exampleGet(string $key, $arguments = [])
