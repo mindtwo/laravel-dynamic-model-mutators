@@ -1,7 +1,5 @@
 # Laravel Dynamic Model Mutators
-[![Build Status](https://travis-ci.org/mindtwo/laravel-dynamic-model-mutators.svg?branch=master)](https://travis-ci.org/mindtwo/laravel-dynamic-model-mutators)
-[![StyleCI](https://styleci.io/repos/159368194/shield)](https://styleci.io/repos/159368194)
-[![Quality Score](https://img.shields.io/scrutinizer/g/mindtwo/laravel-dynamic-model-mutators.svg?style=flat-square)](https://scrutinizer-ci.com/g/mindtwo/laravel-dynamic-model-mutators)
+[![Tests](https://github.com/mindtwo/laravel-dynamic-model-mutators/actions/workflows/tests.yml/badge.svg)](https://github.com/mindtwo/laravel-dynamic-model-mutators/actions/workflows/tests.yml)
 [![Latest Stable Version](https://img.shields.io/packagist/v/mindtwo/laravel-dynamic-model-mutators?style=flat-square)](https://packagist.org/packages/mindtwo/laravel-dynamic-model-mutators)
 [![Total Downloads](https://img.shields.io/packagist/dt/mindtwo/laravel-dynamic-model-mutators?style=flat-square)](https://packagist.org/packages/mindtwo/laravel-dynamic-model-mutators)
 [![MIT Software License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE.md)
